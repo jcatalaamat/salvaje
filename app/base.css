@@ -11,6 +11,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom color variables */
+:root {
+  --color-clay: #b09480;
+  --color-dusty-sage: #d5d1c7;
+  --color-amber-gold: #e7c7a2;
+  --color-moon-white: #fbf9f5;
+  --color-night-earth: #3b2f2f;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -19,16 +28,30 @@
   body {
     @apply text-earth-800 bg-earth-50 font-sans antialiased;
     font-family: 'Inter', system-ui, sans-serif;
+    background-color: var(--color-moon-white);
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
     font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: -0.01em;
   }
   
   /* Sacred section styling */
   section {
     @apply relative overflow-hidden;
+  }
+  
+  /* Poetic callout styling */
+  blockquote {
+    @apply italic text-xl md:text-2xl text-earth-700 my-8 mx-auto max-w-3xl px-8 py-6 relative;
+    border-left: 3px solid var(--color-amber-gold);
+    background: linear-gradient(to right, rgba(231, 199, 162, 0.1), transparent);
+  }
+  
+  blockquote::before {
+    content: '"';
+    @apply absolute top-0 left-4 text-6xl text-earth-500 opacity-30 font-serif;
   }
 }
 
@@ -38,6 +61,7 @@
       hover:bg-[#8D6E56] transition-all duration-300 transform hover:scale-[1.03]
       shadow-[0_0_15px_rgba(167,127,99,0.3)] hover:shadow-[0_0_25px_rgba(167,127,99,0.5)]
       relative overflow-hidden;
+    background-color: var(--color-clay);
   }
   
   .btn-primary::before {
@@ -54,28 +78,34 @@
     @apply px-8 py-3 border-2 border-[#A77F63] text-[#A77F63] rounded-full 
       hover:bg-[#F6EEE3] transition-all duration-300 
       shadow-[0_0_10px_rgba(167,127,99,0.15)] hover:shadow-[0_0_20px_rgba(167,127,99,0.25)];
+    border-color: var(--color-clay);
+    color: var(--color-clay);
   }
   
   .section-heading {
     @apply text-3xl md:text-5xl font-semibold text-[#3B2F2F] mb-10 text-center 
       relative tracking-wide leading-tight;
+    color: var(--color-night-earth);
   }
   
   .section-heading::after {
     content: '';
     @apply block w-12 h-[2px] bg-[#D4B48E] mx-auto mt-4;
+    background-color: var(--color-amber-gold);
   }
   
   .sacred-card {
     @apply p-8 rounded-lg shadow-lg relative overflow-hidden 
       bg-gradient-to-br from-[#F6EEE3] to-[#EAE0D0]
       transition-all duration-500 hover:shadow-xl;
+    background: linear-gradient(135deg, var(--color-moon-white) 0%, var(--color-dusty-sage) 100%);
   }
   
   .sacred-card::before {
     content: '';
     @apply absolute top-0 left-0 w-0 h-[2px] bg-[#D4B48E] 
       transition-all duration-700 ease-in-out;
+    background-color: var(--color-amber-gold);
   }
   
   .sacred-card:hover::before {
@@ -87,6 +117,7 @@
       hover:bg-gold-600 transition-all duration-300 transform hover:scale-[1.03]
       shadow-[0_0_15px_rgba(212,180,142,0.3)] hover:shadow-[0_0_25px_rgba(212,180,142,0.5)]
       relative overflow-hidden font-medium;
+    background-color: var(--color-amber-gold);
   }
   
   .btn-primary-gold::before {
@@ -105,12 +136,46 @@
       shadow-[0_0_10px_rgba(141,110,86,0.15)] hover:shadow-[0_0_20px_rgba(141,110,86,0.25)]
       font-medium;
   }
+  
+  /* Sacred themed button for "Join Our Community" */
+  .btn-sacred-invite {
+    @apply px-8 py-3 bg-transparent text-earth-800 border-2 rounded-full
+      hover:bg-earth-50/50 transition-all duration-500 transform hover:scale-[1.03]
+      shadow-[0_0_10px_rgba(167,127,99,0.2)] hover:shadow-[0_0_20px_rgba(167,127,99,0.4)]
+      relative overflow-hidden font-medium;
+    border-color: var(--color-clay);
+  }
+  
+  .btn-sacred-invite::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-earth-200/30 to-transparent opacity-0
+      transition-all duration-700 ease-out;
+  }
+  
+  .btn-sacred-invite:hover::before {
+    @apply opacity-100;
+  }
+  
+  /* Poetic callout box */
+  .sacred-callout {
+    @apply my-12 p-8 md:p-10 rounded-xl relative overflow-hidden max-w-3xl mx-auto;
+    background: linear-gradient(135deg, rgba(251, 249, 245, 0.8) 0%, rgba(213, 209, 199, 0.5) 100%);
+    border-left: 4px solid var(--color-clay);
+    box-shadow: 0 10px 30px -5px rgba(176, 148, 128, 0.1);
+  }
+  
+  .sacred-callout::before {
+    content: '';
+    @apply absolute top-0 right-0 w-24 h-24 rounded-full opacity-10;
+    background: radial-gradient(circle, var(--color-amber-gold) 0%, transparent 70%);
+  }
 }
 
 /* Earth-inspired decorative elements */
 .sacred-circle {
   @apply absolute rounded-full bg-[#D4B48E]/10;
   animation: pulse 8s infinite alternate ease-in-out;
+  background-color: rgba(231, 199, 162, 0.1);
 }
 
 /* Soft flowing animations */
@@ -124,6 +189,10 @@
 
 .animate-glow {
   animation: glow 3s infinite alternate ease-in-out;
+}
+
+.animate-reveal {
+  animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes fadeIn {
@@ -146,6 +215,34 @@
   100% { transform: scale(1.05); opacity: 0.7; }
 }
 
+@keyframes slow-zoom {
+  0% { transform: scale(1.1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1.1); }
+}
+
+@keyframes reveal {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Animation classes */
+.animate-fade-in {
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.animate-float {
+  animation: float 6s infinite ease-in-out;
+}
+
+.animate-glow {
+  animation: glow 3s infinite alternate ease-in-out;
+}
+
+.animate-slow-zoom {
+  animation: slow-zoom 25s infinite ease-in-out;
+}
+
 /* Gradient backgrounds */
 .sacred-gradient-earth {
   background: linear-gradient(135deg, #F6EEE3 0%, #D6CDBF 100%);
@@ -153,14 +250,25 @@
 
 .sacred-gradient-clay {
   background: linear-gradient(135deg, #A77F63 0%, #8D6E56 100%);
+  background: linear-gradient(135deg, var(--color-clay) 0%, rgba(146, 116, 100, 1) 100%);
 }
 
 .sacred-gradient-sage {
   background: linear-gradient(135deg, #D6CDBF 0%, #B7AFA0 100%);
+  background: linear-gradient(135deg, var(--color-dusty-sage) 0%, rgba(183, 175, 160, 1) 100%);
 }
 
 .sacred-gradient-cocoa {
   background: linear-gradient(135deg, #3B2F2F 0%, #2A2222 100%);
+  background: linear-gradient(135deg, var(--color-night-earth) 0%, rgba(42, 34, 34, 1) 100%);
+}
+
+.sacred-gradient-amber {
+  background: linear-gradient(135deg, var(--color-amber-gold) 0%, rgba(212, 180, 142, 1) 100%);
+}
+
+.sacred-gradient-moon {
+  background: linear-gradient(135deg, var(--color-moon-white) 0%, rgba(236, 232, 224, 1) 100%);
 }
 
 /* Scroll decoration for dividers */
@@ -178,4 +286,59 @@
 
 .sacred-divider path {
   fill: currentColor;
+}
+
+/* Sacred glyph */
+.sacred-glyph {
+  position: absolute;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+/* Ritual navigation beads */
+.ritual-beads {
+  @apply fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col items-center gap-3;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.ritual-beads:hover {
+  opacity: 1;
+}
+
+.ritual-bead {
+  @apply w-3 h-3 rounded-full bg-earth-200 transition-all duration-300;
+}
+
+.ritual-bead.active {
+  @apply w-4 h-4 bg-earth-500;
+}
+
+/* Decorative separator */
+.sacred-separator {
+  @apply my-12 flex items-center justify-center;
+}
+
+.sacred-separator::before,
+.sacred-separator::after {
+  content: '';
+  @apply h-px bg-earth-200 flex-grow;
+}
+
+.sacred-separator::before {
+  margin-right: 1.5rem;
+}
+
+.sacred-separator::after {
+  margin-left: 1.5rem;
+}
+
+.sacred-separator-symbol {
+  @apply text-earth-400 text-xl;
+}
+
+/* Text selection style */
+::selection {
+  background-color: rgba(231, 199, 162, 0.3);
+  color: var(--color-night-earth);
 }

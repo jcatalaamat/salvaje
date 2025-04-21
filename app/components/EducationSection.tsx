@@ -75,7 +75,7 @@ const programs = [
   }
 ];
 
-export default function ProgramsSection() {
+export default function EducationSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
@@ -128,8 +128,7 @@ export default function ProgramsSection() {
   return (
     <section 
       ref={sectionRef} 
-      id="programs"
-      className="py-32 relative overflow-hidden bg-white"
+      className="py-32 relative overflow-hidden bg-gradient-to-br from-forest-50/30 via-white to-forest-50/20"
     >
       {/* Organic background shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -203,7 +202,7 @@ export default function ProgramsSection() {
                   <div className="flex justify-center md:justify-start">
                     <a 
                       href={`#${program.id}`} 
-                      className="btn-outline-earth px-6 py-2 rounded-full inline-flex items-center hover:bg-forest-50 transition-all duration-300 group-hover:border-forest-400"
+                      className="btn-outline-forest px-6 py-2 rounded-full inline-flex items-center hover:bg-forest-50 transition-all duration-300 group-hover:border-forest-400"
                     >
                       <span>Learn More</span>
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
@@ -235,7 +234,7 @@ export default function ProgramsSection() {
               <h3 className="text-2xl font-serif text-earth-900 mb-6">Interested in our educational experiences?</h3>
               <a 
                 href="#calendar" 
-                className="btn-primary-gold px-8 py-3 rounded-full inline-flex items-center shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="btn-primary-forest px-8 py-3 rounded-full inline-flex items-center shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 <span>View Program Calendar</span>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
@@ -245,6 +244,44 @@ export default function ProgramsSection() {
             </div>
           </div>
         </motion.div>
+        
+        {/* Testimonial */}
+        <div className="mt-32 relative">
+          <div className="absolute left-0 right-0 h-full w-full max-w-4xl mx-auto">
+            <div className="absolute top-0 left-6 transform -translate-y-1/2 text-gold-300 opacity-30">
+              <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+              </svg>
+            </div>
+          </div>
+          
+          <div className="bg-white/60 backdrop-blur-sm rounded-2xl shadow-xl p-8 md:p-12 max-w-4xl mx-auto border border-gold-100">
+            <div className="flex flex-col md:flex-row gap-8 items-center">
+              <div className="w-24 h-24 rounded-full bg-gold-50 flex-shrink-0 overflow-hidden border-2 border-gold-100 shadow-md">
+                <div className="w-full h-full bg-texture-paper bg-cover bg-center"></div>
+              </div>
+              
+              <div>
+                <p className="text-earth-800 text-lg italic leading-relaxed mb-4">
+                  "The permaculture design course at Salvaje was truly transformative. The combination of practical skills, indigenous wisdom, and community connection has forever changed how I relate to the land. I left with not only new knowledge but a profound sense of purpose."
+                </p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="font-medium text-earth-900">Maria Rodriguez</h4>
+                    <p className="text-sm text-earth-600">Permaculture Design Graduate</p>
+                  </div>
+                  <div className="flex text-gold-500">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -8,6 +8,7 @@ import LandSection from './components/LandSection'
 import ProgramsSection from './components/ProgramsSection'
 import CommunitySection from './components/CommunitySection'
 import JoinSection from './components/JoinSection'
+import Todo from './components/Todo'
 
 // Import framer-motion for page transitions
 import { motion } from 'framer-motion'
@@ -109,6 +110,37 @@ export default function Index() {
                 <path 
                   d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" 
                   className="fill-earth-50"
+                />
+              </svg>
+            </div>
+            
+            {/* Todo Section */}
+            <section className="py-16 bg-earth-100">
+              <div className="container mx-auto px-4">
+                <h2 className="text-3xl md:text-4xl font-serif text-center mb-12 text-earth-800">
+                  Community Task Tracker
+                </h2>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                >
+                  <Todo />
+                </motion.div>
+              </div>
+            </section>
+            
+            {/* Decorative divider */}
+            <div className="relative h-20 overflow-hidden">
+              <svg 
+                className="absolute bottom-0 left-0 w-full transform rotate-180"
+                viewBox="0 0 1200 120" 
+                preserveAspectRatio="none"
+              >
+                <path 
+                  d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" 
+                  className="fill-earth-100"
                 />
               </svg>
             </div>
