@@ -26,6 +26,8 @@ jobs:
 
       - name: Build website
         run: yarn build:web
+        env:
+          ONE_SERVER_URL: https://proyectosalvaje.com
 
       - name: Create CNAME file
         run: echo 'proyectosalvaje.com' > ./dist/CNAME
