@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 
@@ -89,6 +89,40 @@ const galleryImages = [
   }
 ];
 
+// Land details in 3 columns
+const landDetails = [
+  {
+    title: "Topography & Access",
+    details: [
+      "50 hectares of diverse landscape",
+      "Flat areas suitable for building",
+      "Hills and valleys for varying microclimates",
+      "Year-round water access from streams",
+      "Maintained road access to the property"
+    ]
+  },
+  {
+    title: "Cultural Importance",
+    details: [
+      "Located near Mazunte village",
+      "Rich in indigenous heritage",
+      "Vibrant local community energy",
+      "Close to sacred ceremonial sites",
+      "Supportive neighboring villages"
+    ]
+  },
+  {
+    title: "Development Potential",
+    details: [
+      "Space for 20+ sustainable homes",
+      "Last undeveloped piece in the area",
+      "Nutrient-rich volcanic soil",
+      "Private road infrastructure",
+      "Natural boundaries for privacy"
+    ]
+  }
+];
+
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
@@ -109,6 +143,16 @@ export default function LandSection() {
   const featuresRef = useRef<HTMLDivElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
   const parallaxRef = useRef<HTMLDivElement>(null);
+  const [currentImage, setCurrentImage] = useState(0);
+  
+  // Auto-advance carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % galleryImages.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, []);
   
   // GSAP animations
   useEffect(() => {
@@ -224,23 +268,92 @@ export default function LandSection() {
       
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         {/* Header section */}
-        <div ref={textRef} className="max-w-3xl mx-auto text-center mb-24">
+        <div ref={textRef} className="max-w-3xl mx-auto text-center mb-20">
           <span className="inline-block text-earth-600 uppercase tracking-[0.25em] text-sm font-medium mb-6 animate-gsap">The Land</span>
           <h2 className="section-heading mb-12 animate-gsap">Where Nature Inspires Our Vision</h2>
           <p className="text-xl text-earth-700 leading-relaxed mb-8 animate-gsap">
             Nestled in the heart of the Costa Rican mountains, our 50-hectare sanctuary combines pristine forests, flowing streams, and fertile valleys—creating the perfect canvas for regenerative design and conscious community.
           </p>
-          <div className="animate-gsap">
-            <div className="relative inline-flex items-center text-earth-600 font-medium group cursor-pointer">
-              <span className="mr-2">Discover our location</span>
-              <span className="relative z-10 inline-block w-6 h-6 rounded-full bg-earth-100 flex items-center justify-center group-hover:bg-earth-200 transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </span>
-              <div className="absolute inset-0 w-full h-full transform translate-y-1.5 translate-x-1.5 bg-earth-100/50 rounded-full opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>
+        </div>
+        
+        {/* Enhanced Land Visualization */}
+        <div className="mb-20 relative rounded-xl overflow-hidden shadow-2xl">
+          {/* Map overlay with drone images carousel */}
+          <div className="relative h-[500px] md:h-[600px] overflow-hidden">
+            {/* Map base layer */}
+            <div className="absolute inset-0 bg-cover bg-center opacity-30 z-0"
+              style={{ backgroundImage: 'url("/images/map-overlay.jpg")' }}>
+            </div>
+            
+            {/* Drone image carousel */}
+            <div className="absolute inset-0 z-10">
+              {galleryImages.map((image, index) => (
+                <div 
+                  key={index}
+                  className={`absolute inset-0 transition-opacity duration-1000 ${
+                    index === currentImage ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  <img 
+                    src={image.src} 
+                    alt={image.alt}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                    <p className="text-white text-lg font-serif">{image.caption}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Carousel navigation */}
+            <div className="absolute bottom-8 right-8 z-20 flex space-x-2">
+              {galleryImages.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImage(index)}
+                  className={`w-3 h-3 rounded-full transition-all ${
+                    index === currentImage 
+                      ? "bg-white scale-100" 
+                      : "bg-white/50 scale-75"
+                  }`}
+                  aria-label={`Go to image ${index + 1}`}
+                />
+              ))}
+            </div>
+            
+            {/* Quote overlay */}
+            <div className="absolute top-8 left-8 right-8 z-20 md:max-w-md bg-black/30 backdrop-blur-sm p-6 rounded-lg border border-white/10">
+              <p className="text-white text-lg md:text-xl italic font-serif">
+                "The land is nestled in front of a natural reserve… offering privacy and deep peace — being both protected and connected."
+              </p>
             </div>
           </div>
+        </div>
+        
+        {/* 3 Columns Layout for Land Details */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {landDetails.map((column, index) => (
+            <motion.div
+              key={index}
+              custom={index}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={fadeInUp}
+              className="bg-earth-50/80 p-8 rounded-lg border-t-4 border-earth-400/30 shadow-md"
+            >
+              <h3 className="text-xl font-serif text-earth-800 mb-4">{column.title}</h3>
+              <ul className="space-y-2">
+                {column.details.map((detail, idx) => (
+                  <li key={idx} className="flex items-start">
+                    <span className="text-earth-500 mr-2 mt-1">•</span>
+                    <span className="text-earth-700">{detail}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
         </div>
         
         {/* Features section */}
@@ -252,77 +365,18 @@ export default function LandSection() {
                 custom={index}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
+                viewport={{ once: true, margin: "-100px" }}
                 variants={fadeInUp}
+                className="p-6 bg-gradient-to-br from-earth-50 to-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group border border-earth-100"
               >
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-earth-100 hover:shadow-2xl transition-all duration-500 h-full group relative overflow-hidden">
-                  {/* Decorative circle */}
-                  <div className="absolute -right-8 -top-8 w-24 h-24 rounded-full bg-forest-50 opacity-20 transform group-hover:scale-125 transition-transform duration-500"></div>
-                  
-                  {/* Icon */}
-                  <div className="w-16 h-16 rounded-full bg-earth-50 flex items-center justify-center border border-earth-100 text-earth-700 shadow-sm mb-6 group-hover:bg-earth-100 transition-colors duration-300 relative z-10">
-                    <div className="w-8 h-8">
-                      {feature.icon}
-                    </div>
-                  </div>
-                  
-                  <h3 className="text-xl font-serif text-forest-900 mb-3 relative z-10">{feature.title}</h3>
-                  <p className="text-earth-700 leading-relaxed relative z-10">{feature.description}</p>
+                <div className="w-16 h-16 mb-4 text-earth-600 transform transition-transform duration-500 group-hover:scale-110 group-hover:text-earth-700">
+                  {feature.icon}
                 </div>
+                <h3 className="text-xl font-serif text-earth-900 mb-2">{feature.title}</h3>
+                <p className="text-earth-700">{feature.description}</p>
               </motion.div>
             ))}
           </div>
-        </div>
-        
-        {/* Image Gallery */}
-        <div ref={galleryRef} className="relative mb-20">
-          <h3 className="text-2xl font-serif text-center text-earth-800 mb-16">Experience The Land</h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {galleryImages.map((image, index) => (
-              <div key={index} className="gallery-image relative group overflow-hidden rounded-2xl shadow-lg">
-                <div className="aspect-w-4 aspect-h-3 bg-earth-100 overflow-hidden">
-                  <img 
-                    src={image.src} 
-                    alt={image.alt} 
-                    className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                  <p className="text-white text-sm font-medium">{image.caption}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        {/* Call to action */}
-        <div className="text-center mt-24">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <div className="relative inline-block max-w-xl mx-auto p-10 rounded-2xl">
-              <div className="absolute inset-0 bg-gradient-to-r from-earth-50 via-forest-50 to-earth-50 rounded-2xl opacity-70"></div>
-              <div className="absolute inset-0 backdrop-blur-sm rounded-2xl"></div>
-              <div className="relative">
-                <h3 className="text-2xl font-serif text-earth-900 mb-6">Want to experience the land in person?</h3>
-                <p className="text-earth-700 mb-8">Join one of our immersive retreats or schedule a guided tour of the property.</p>
-                <a 
-                  href="#events" 
-                  className="btn-primary-earth px-8 py-3 rounded-full inline-flex items-center shadow-xl transition-all duration-300 transform hover:scale-105"
-                >
-                  <span>View Upcoming Events</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

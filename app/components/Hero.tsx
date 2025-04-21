@@ -78,11 +78,24 @@ export default function Hero() {
 
   return (
     <section ref={heroRef} className="relative min-h-screen overflow-hidden">
-      {/* Immersive background with enhanced parallax & texture effect */}
-      <div className="absolute inset-0 z-0 opacity-40 animate-slow-zoom">
-        <div className="absolute inset-0 bg-gradient-to-b from-earth-50/90 via-transparent to-earth-100/70"></div>
-        <div className="absolute inset-0 bg-[url('/images/texture-bg.jpg')] bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-50"></div>
-        <div className="absolute inset-0 backdrop-blur-[2px]"></div>
+      {/* Enhanced cinematic background with parallax & texture effect */}
+      <div className="absolute inset-0 z-0">
+        {/* Cinematic video background with overlay */}
+        <div className="absolute inset-0 overflow-hidden">
+          <video 
+            className="absolute w-full h-full object-cover object-center"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/images/texture-bg.jpg"
+          >
+            <source src="/videos/gentle-nature.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-earth-50/90 via-transparent to-earth-100/70"></div>
+          <div className="absolute inset-0 bg-[url('/images/texture-bg.jpg')] bg-cover bg-center bg-no-repeat mix-blend-overlay opacity-50"></div>
+          <div className="absolute inset-0 backdrop-blur-[2px]"></div>
+        </div>
       </div>
       
       {/* Enhanced sacred geometry background elements with more organic shapes */}
@@ -131,9 +144,9 @@ export default function Hero() {
           
           <h1 
             ref={titleRef}
-            className="font-serif text-5xl md:text-7xl text-earth-900 mb-8 leading-tight"
+            className="font-serif text-5xl md:text-7xl text-earth-900 mb-6 leading-tight"
           >
-            Where the Earth Remembers Who We Are
+            A regenerative village school for truth, healing, and sovereign living
           </h1>
           
           <motion.p 
@@ -142,24 +155,14 @@ export default function Hero() {
             transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="text-xl md:text-2xl text-earth-800 max-w-3xl mx-auto mb-6 font-serif italic"
           >
-            A Return to Truth, Healing, and Sovereign Living
-          </motion.p>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="text-lg md:text-xl text-earth-600 max-w-3xl mx-auto mb-12 leading-relaxed"
-          >
-            A sacred haven where ecological design, indigenous wisdom, and conscious community 
-            come together to create a regenerative blueprint for our collective future.
+            A healing village and real-life school for future generations — rooted in dignity, integrity, and remembrance of the sacred.
           </motion.p>
           
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-wrap justify-center gap-6"
+            className="flex flex-wrap justify-center gap-6 mt-10"
           >
             <a href="#join" className="hero-button btn-sacred-invite group relative overflow-hidden">
               <span className="relative z-10">Join Our Community</span>

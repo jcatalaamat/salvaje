@@ -24,7 +24,13 @@ const visionPillars = [
         <circle cx="32" cy="32" r="5" fill="currentColor" fillOpacity="0.2" />
       </svg>
     ),
-    color: "bg-gradient-to-br from-earth-50 to-earth-100 border-l-4 border-earth-500"
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L14.5 9H22L16 13.5L18.5 20.5L12 16L5.5 20.5L8 13.5L2 9H9.5L12 2Z" fill="currentColor" fillOpacity="0.3" stroke="currentColor" strokeWidth="1" />
+      </svg>
+    ),
+    color: "bg-gradient-to-br from-earth-50 to-earth-100 border-l-4 border-earth-500",
+    texture: "bg-[url('/images/textures/handmade-paper.png')]"
   },
   {
     title: "Human-Centered Healing",
@@ -38,7 +44,14 @@ const visionPillars = [
         <circle cx="32" cy="32" r="4" fill="currentColor" fillOpacity="0.2" />
       </svg>
     ),
-    color: "bg-gradient-to-br from-forest-50 to-forest-100 border-l-4 border-forest-500"
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="1" />
+        <path d="M12 7V17M7 12H17" stroke="currentColor" strokeWidth="1" />
+      </svg>
+    ),
+    color: "bg-gradient-to-br from-forest-50 to-forest-100 border-l-4 border-forest-500",
+    texture: "bg-[url('/images/textures/papyrus.png')]"
   },
   {
     title: "Indigenous Wisdom",
@@ -54,7 +67,15 @@ const visionPillars = [
         <circle cx="32" cy="32" r="4" fill="currentColor" fillOpacity="0.2" />
       </svg>
     ),
-    color: "bg-gradient-to-br from-gold-100 to-gold-200 border-l-4 border-gold-500"
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 3C8 5.20914 9.79086 7 12 7C14.2091 7 16 5.20914 16 3" stroke="currentColor" strokeWidth="1" />
+        <path d="M12 7V21" stroke="currentColor" strokeWidth="1" />
+        <path d="M8 21C8 18.7909 9.79086 17 12 17C14.2091 17 16 18.7909 16 21" stroke="currentColor" strokeWidth="1" />
+      </svg>
+    ),
+    color: "bg-gradient-to-br from-gold-100 to-gold-200 border-l-4 border-gold-500",
+    texture: "bg-[url('/images/textures/sand-grain.png')]"
   },
   {
     title: "Sovereignty & Autonomy",
@@ -68,7 +89,15 @@ const visionPillars = [
         <circle cx="32" cy="32" r="4" fill="currentColor" fillOpacity="0.2" />
       </svg>
     ),
-    color: "bg-gradient-to-br from-ocean-50 to-ocean-100 border-l-4 border-ocean-500"
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L20 8V16L12 22L4 16V8L12 2Z" stroke="currentColor" strokeWidth="1" />
+        <path d="M12 8V16" stroke="currentColor" strokeWidth="1" />
+        <path d="M8 12H16" stroke="currentColor" strokeWidth="1" />
+      </svg>
+    ),
+    color: "bg-gradient-to-br from-ocean-50 to-ocean-100 border-l-4 border-ocean-500",
+    texture: "bg-[url('/images/textures/handmade-paper.png')]"
   }
 ];
 
@@ -209,135 +238,70 @@ export default function VisionSection() {
           </p>
         </motion.div>
 
-        <div className="sacred-separator">
+        <div className="sacred-separator mb-16">
           <span className="sacred-separator-symbol">✦</span>
         </div>
 
-        {/* Vision Pillars with asymmetric layout and scroll-fade animation */}
-        <div className="grid md:grid-cols-10 gap-12 mb-32">
-          {/* Left column - 6 spans */}
-          <div className="md:col-span-6 space-y-8 md:space-y-28">
-            {visionPillars.slice(0, 2).map((pillar, index) => (
-              <motion.div
-                ref={addToPillarRefs}
-                key={pillar.title}
-                initial={{ opacity: 0, x: -30, y: index * 20 }}
-                whileInView={{ opacity: 1, x: 0, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.7, delay: index * 0.2 }}
-                className={`${pillar.color} p-10 rounded-xl shadow-lg transition-all duration-500 
-                  hover:shadow-xl group relative overflow-hidden transform md:translate-y-${index * 12}`}
-              >
-                {/* Background patterns */}
-                <div className="absolute top-0 right-0 opacity-[0.03] w-60 h-60 transform translate-x-1/4 -translate-y-1/4">
-                  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                    <path fill="#000000" d="M40.8,-68.7C51.9,-61.3,59.5,-48.5,65.1,-35.3C70.6,-22.1,74.1,-8.6,73.2,4.6C72.3,17.8,67,30.8,58.4,41.1C49.8,51.4,37.9,59.1,24.7,65.3C11.5,71.5,-3,76.3,-17.2,75.1C-31.4,73.9,-45.3,66.7,-55.8,56.1C-66.3,45.6,-73.4,31.6,-75.7,16.8C-78.1,2,-75.6,-13.8,-69.9,-28.2C-64.2,-42.5,-55.2,-55.4,-43.1,-62.5C-30.9,-69.6,-15.5,-70.9,-0.2,-70.6C15.1,-70.3,29.7,-76.1,40.8,-68.7Z" transform="translate(100 100)" />
-                  </svg>
-                </div>
-                
-                <div className="relative">
-                  <div className="flex items-center mb-6">
-                    <div className="mr-5 text-earth-700 transform transition-transform duration-700 group-hover:scale-110">
-                      {pillar.symbol}
-                    </div>
-                    <h3 className="text-2xl font-serif text-earth-900">{pillar.title}</h3>
+        {/* Vision Pillars with organic shapes and textured backgrounds */}
+        <div className="grid md:grid-cols-2 gap-12 mb-16">
+          {visionPillars.map((pillar, index) => (
+            <motion.div
+              ref={addToPillarRefs}
+              key={pillar.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: index * 0.15 }}
+              className={`${pillar.color} p-8 md:p-10 rounded-xl shadow-lg transition-all duration-500 
+                hover:shadow-xl group relative overflow-hidden ${pillar.texture} bg-blend-soft-light`}
+              style={{
+                borderRadius: index % 2 === 0 ? '1.5rem 0.5rem 1.5rem 0.5rem' : '0.5rem 1.5rem 0.5rem 1.5rem'
+              }}
+            >
+              {/* Background patterns */}
+              <div className="absolute top-0 right-0 opacity-[0.03] w-60 h-60 transform translate-x-1/4 -translate-y-1/4">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                  <path fill="#000000" d="M40.8,-68.7C51.9,-61.3,59.5,-48.5,65.1,-35.3C70.6,-22.1,74.1,-8.6,73.2,4.6C72.3,17.8,67,30.8,58.4,41.1C49.8,51.4,37.9,59.1,24.7,65.3C11.5,71.5,-3,76.3,-17.2,75.1C-31.4,73.9,-45.3,66.7,-55.8,56.1C-66.3,45.6,-73.4,31.6,-75.7,16.8C-78.1,2,-75.6,-13.8,-69.9,-28.2C-64.2,-42.5,-55.2,-55.4,-43.1,-62.5C-30.9,-69.6,-15.5,-70.9,-0.2,-70.6C15.1,-70.3,29.7,-76.1,40.8,-68.7Z" transform="translate(100 100)" />
+                </svg>
+              </div>
+              
+              <div className="relative">
+                <div className="flex items-start mb-6">
+                  <div className="mr-5 text-earth-700 transform transition-transform duration-700 group-hover:scale-110">
+                    {pillar.symbol}
                   </div>
-                  <p className="text-earth-800 leading-relaxed ml-[76px] animate-reveal">
-                    {pillar.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          
-          {/* Right column - 4 spans */}
-          <div className="md:col-span-4 md:mt-32 space-y-8 md:space-y-24">
-            {visionPillars.slice(2).map((pillar, index) => (
-              <motion.div
-                ref={addToPillarRefs}
-                key={pillar.title}
-                initial={{ opacity: 0, x: 30, y: index * -20 }}
-                whileInView={{ opacity: 1, x: 0, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.7, delay: (index + 2) * 0.2 }}
-                className={`${pillar.color} p-10 rounded-xl shadow-lg transition-all duration-500 
-                  hover:shadow-xl group relative overflow-hidden`}
-              >
-                {/* Background patterns */}
-                <div className="absolute top-0 right-0 opacity-[0.03] w-60 h-60 transform translate-x-1/4 -translate-y-1/4">
-                  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                    <path fill="#000000" d="M40.8,-68.7C51.9,-61.3,59.5,-48.5,65.1,-35.3C70.6,-22.1,74.1,-8.6,73.2,4.6C72.3,17.8,67,30.8,58.4,41.1C49.8,51.4,37.9,59.1,24.7,65.3C11.5,71.5,-3,76.3,-17.2,75.1C-31.4,73.9,-45.3,66.7,-55.8,56.1C-66.3,45.6,-73.4,31.6,-75.7,16.8C-78.1,2,-75.6,-13.8,-69.9,-28.2C-64.2,-42.5,-55.2,-55.4,-43.1,-62.5C-30.9,-69.6,-15.5,-70.9,-0.2,-70.6C15.1,-70.3,29.7,-76.1,40.8,-68.7Z" transform="translate(100 100)" />
-                  </svg>
-                </div>
-                
-                <div className="relative">
-                  <div className="flex items-center mb-6">
-                    <div className="mr-5 text-earth-700 transform transition-transform duration-700 group-hover:scale-110">
-                      {pillar.symbol}
+                  <div>
+                    <div className="flex items-center mb-2">
+                      <span className="mr-2 text-earth-700">{pillar.icon}</span>
+                      <h3 className="text-2xl font-serif text-earth-900">{pillar.title}</h3>
                     </div>
-                    <h3 className="text-2xl font-serif text-earth-900">{pillar.title}</h3>
+                    <p className="text-earth-800 leading-relaxed animate-reveal">
+                      {pillar.description}
+                    </p>
                   </div>
-                  <p className="text-earth-800 leading-relaxed ml-[76px] animate-reveal">
-                    {pillar.description}
-                  </p>
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        <div className="sacred-separator">
-          <span className="sacred-separator-symbol">✧</span>
-        </div>
-
-        {/* Enhanced Quote section in sacred callout box */}
-        <div
+        {/* Added quote block with the recommended text */}
+        <motion.div
           ref={quoteRef}
-          className="sacred-callout mt-24 relative p-14 md:p-16 max-w-4xl mx-auto bg-gradient-to-br from-earth-50/80 to-earth-100/80 border border-gold-300/30 rounded-lg backdrop-blur-sm shadow-lg"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="sacred-callout text-center my-24"
         >
-          {/* Decorative elements */}
-          <div className="absolute top-6 left-6 w-16 h-16 opacity-30">
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 28H12C12 20.8203 17.8203 15 25 15V23C22.2386 23 20 25.2386 20 28Z" stroke="var(--color-clay)" strokeWidth="1" />
-              <path d="M36 28H28C28 20.8203 33.8203 15 41 15V23C38.2386 23 36 25.2386 36 28Z" stroke="var(--color-clay)" strokeWidth="1" />
-            </svg>
-          </div>
-          <div className="absolute bottom-6 right-6 w-16 h-16 opacity-30 rotate-180">
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 28H12C12 20.8203 17.8203 15 25 15V23C22.2386 23 20 25.2386 20 28Z" stroke="var(--color-clay)" strokeWidth="1" />
-              <path d="M36 28H28C28 20.8203 33.8203 15 41 15V23C38.2386 23 36 25.2386 36 28Z" stroke="var(--color-clay)" strokeWidth="1" />
-            </svg>
-          </div>
-          
-          <p className="text-2xl md:text-3xl text-earth-800 italic font-serif leading-relaxed mb-8 relative z-10">
-            "This is a regenerative, heart-led social project dedicated to future generations and the defense of human integrity. 
-            It's a community made to radiate outward and plant seeds of change, rather than being an isolated bubble that turns in a closed circle."
+          <p className="font-serif text-xl md:text-2xl text-earth-800 italic">
+            "This is a regenerative, heart-led social project dedicated to future generations and the defense of human integrity."
           </p>
-          
-          <div className="h-0.5 w-16 bg-gold-500/50 mx-auto my-6"></div>
-          
-          <p className="text-earth-700 uppercase tracking-widest text-sm text-center">
-            Our Sacred Manifesto
-          </p>
-        </div>
-        
-        {/* Ritual journey down indicator */}
-        <div className="mt-24 text-center">
-          <motion.div 
-            className="inline-block"
-            initial={{ y: 0 }}
-            animate={{ y: [0, 10, 0] }}
-            transition={{ 
-              duration: 2,
-              repeat: Infinity,
-              repeatType: "loop"
-            }}
-          >
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-auto text-earth-600 opacity-60">
-              <path d="M12 6V18M12 18L7 13M12 18L17 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <p className="text-sm text-earth-600 mt-2 font-light tracking-wider uppercase">Continue the journey</p>
-          </motion.div>
+        </motion.div>
+
+        {/* Decorative ending element */}
+        <div className="sacred-separator mt-24">
+          <span className="sacred-separator-symbol">✧</span>
         </div>
       </div>
     </section>

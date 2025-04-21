@@ -7,8 +7,9 @@ import VisionSection from './components/VisionSection'
 import LandSection from './components/LandSection'
 import ProgramsSection from './components/ProgramsSection'
 import CommunitySection from './components/CommunitySection'
+import IndigenousStewardshipSection from './components/IndigenousStewardshipSection'
 import JoinSection from './components/JoinSection'
-import Todo from './components/Todo'
+import HeroSection from './components/HeroSection'
 
 // Import framer-motion for page transitions
 import { motion } from 'framer-motion'
@@ -114,23 +115,6 @@ export default function Index() {
               </svg>
             </div>
             
-            {/* Todo Section */}
-            <section className="py-16 bg-earth-100">
-              <div className="container mx-auto px-4">
-                <h2 className="text-3xl md:text-4xl font-serif text-center mb-12 text-earth-800">
-                  Community Task Tracker
-                </h2>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                >
-                  <Todo />
-                </motion.div>
-              </div>
-            </section>
-            
             {/* Decorative divider */}
             <div className="relative h-20 overflow-hidden">
               <svg 
@@ -141,6 +125,22 @@ export default function Index() {
                 <path 
                   d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" 
                   className="fill-earth-100"
+                />
+              </svg>
+            </div>
+            
+            <IndigenousStewardshipSection />
+            
+            {/* Decorative divider for Indigenous section */}
+            <div className="relative h-20 overflow-hidden">
+              <svg 
+                className="absolute bottom-0 left-0 w-full"
+                viewBox="0 0 1200 120" 
+                preserveAspectRatio="none"
+              >
+                <path 
+                  d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" 
+                  className="fill-earth-50"
                 />
               </svg>
             </div>

@@ -84,10 +84,63 @@ const governanceStructures = [
   }
 ];
 
+// Timeline phases
+const timelinePhases = [
+  {
+    id: "phase1",
+    title: "Phase 1",
+    description: "Land acquisition and initial infrastructure development. Formation of founding member council and early adopters.",
+    date: "Current",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6">
+        <path d="M2 22L12 2L22 22H2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    )
+  },
+  {
+    id: "phase2",
+    title: "Phase 2",
+    description: "First residential buildings, communal spaces, and permaculture systems established. Initial educational programs launched.",
+    date: "Year 1",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6">
+        <path d="M21 7.35304L21 16.647C21 16.8649 20.8819 17.0656 20.6914 17.1715L12.2914 21.8381C12.1102 21.9388 11.8898 21.9388 11.7086 21.8381L3.30861 17.1715C3.11814 17.0656 3 16.8649 3 16.647L2.99998 7.35304C2.99998 7.13514 3.11812 6.93437 3.3086 6.82855L11.7086 2.16188C11.8898 2.06121 12.1102 2.06121 12.2914 2.16188L20.6914 6.82855C20.8818 6.93437 21 7.13514 21 7.35304Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    )
+  },
+  {
+    id: "year2",
+    title: "Year 2",
+    description: "Integration of technological infrastructure, renewable energy systems, and community governance refined.",
+    date: "Year 2",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    )
+  },
+  {
+    id: "year3",
+    title: "Year 3",
+    description: "Full community established with integrated educational programs, visitor options, and expanded impact initiatives.",
+    date: "Year 3",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6">
+        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M7.5 12H16.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M12 7.5V16.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    )
+  }
+];
+
 export default function CommunitySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const valuesRef = useRef<HTMLDivElement>(null);
   const governanceRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const daoRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
   
   const { scrollYProgress } = useScroll({
@@ -100,47 +153,110 @@ export default function CommunitySection() {
   
   // GSAP animations
   useEffect(() => {
-    if (typeof ScrollTrigger === 'undefined' || !valuesRef.current || !governanceRef.current) {
+    if (typeof ScrollTrigger === 'undefined') {
       return;
     }
     
     // Animate values cards
-    const valueCards = valuesRef.current.querySelectorAll('.value-card');
-    gsap.fromTo(
-      valueCards,
-      { y: 80, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        stagger: 0.15,
-        duration: 0.7,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: valuesRef.current,
-          start: "top 75%",
-          toggleActions: "play none none reverse"
+    if (valuesRef.current) {
+      const valueCards = valuesRef.current.querySelectorAll('.value-card');
+      gsap.fromTo(
+        valueCards,
+        { y: 80, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.15,
+          duration: 0.7,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: valuesRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse"
+          }
         }
-      }
-    );
+      );
+    }
     
     // Animate governance structures
-    const governanceItems = governanceRef.current.querySelectorAll('.governance-item');
-    gsap.fromTo(
-      governanceItems,
-      { x: -50, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        stagger: 0.2,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: governanceRef.current,
-          start: "top 70%",
-          toggleActions: "play none none reverse"
+    if (governanceRef.current) {
+      const governanceItems = governanceRef.current.querySelectorAll('.governance-item');
+      gsap.fromTo(
+        governanceItems,
+        { x: -50, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          stagger: 0.2,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: governanceRef.current,
+            start: "top 70%",
+            toggleActions: "play none none reverse"
+          }
         }
-      }
-    );
+      );
+    }
+    
+    // Animate timeline
+    if (timelineRef.current) {
+      const timelineItems = timelineRef.current.querySelectorAll('.timeline-item');
+      const timelineLine = timelineRef.current.querySelector('.timeline-line');
+      
+      gsap.fromTo(
+        timelineLine,
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          duration: 1.5,
+          ease: "power2.inOut",
+          scrollTrigger: {
+            trigger: timelineRef.current,
+            start: "top 70%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+      
+      gsap.fromTo(
+        timelineItems,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.25,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: timelineRef.current,
+            start: "top 70%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+    
+    // Animate DAO section
+    if (daoRef.current) {
+      const elements = daoRef.current.querySelectorAll('.dao-item');
+      gsap.fromTo(
+        elements,
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.15,
+          duration: 0.7,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: daoRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
   }, []);
 
   return (
@@ -177,7 +293,7 @@ export default function CommunitySection() {
       </div>
       
       <div className="max-w-7xl mx-auto px-4 relative z-10">
-        <div className="mb-20 max-w-3xl mx-auto text-center">
+        <div className="mb-16 max-w-3xl mx-auto text-center">
           <motion.span 
             className="inline-block text-earth-600 uppercase tracking-[0.25em] text-sm font-medium mb-6"
             initial={{ opacity: 0, y: 20 }}
@@ -200,13 +316,12 @@ export default function CommunitySection() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            We're building a conscious community centered around shared values and regenerative practices.
-            Our governance systems draw from ancient wisdom and modern organizational design to create a structure that's both resilient and adaptive.
+            We're looking to offer shelter for those dedicated to supporting the collective and fighting for truth & dignity. Our governance systems draw from ancient wisdom and modern organizational design to create a structure that's both resilient and adaptive.
           </motion.p>
         </div>
         
         {/* Core Values */}
-        <div className="mb-32">
+        <div className="mb-24">
           <motion.h3 
             className="text-2xl font-serif text-earth-900 mb-16 text-center"
             initial={{ opacity: 0, y: 20 }}
@@ -239,6 +354,44 @@ export default function CommunitySection() {
           </div>
         </div>
         
+        {/* Project Timeline */}
+        <div className="mb-24">
+          <motion.h3 
+            className="text-2xl font-serif text-earth-900 mb-16 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            Development Timeline
+          </motion.h3>
+          
+          <div ref={timelineRef} className="relative">
+            {/* Timeline connector line */}
+            <div className="timeline-line absolute top-10 left-0 right-0 h-1 bg-earth-200 transform origin-left"></div>
+            
+            {/* Timeline steps */}
+            <div className="relative grid grid-cols-1 md:grid-cols-4 gap-8 pt-16">
+              {timelinePhases.map((phase, index) => (
+                <div key={phase.id} className="timeline-item relative">
+                  {/* Phase circle */}
+                  <div className="absolute -top-16 left-1/2 md:left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full bg-white border-4 border-earth-400 flex items-center justify-center">
+                    <div className="text-earth-700">
+                      {phase.icon}
+                    </div>
+                  </div>
+                  
+                  {/* Phase content */}
+                  <div className="bg-white rounded-xl shadow-md p-6 border border-earth-100 h-full hover:shadow-lg transition-all duration-300">
+                    <div className="text-earth-500 text-sm font-medium mb-2">{phase.date}</div>
+                    <h4 className="text-xl font-serif text-earth-900 mb-3">{phase.title}</h4>
+                    <p className="text-earth-700 text-sm">{phase.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        
         {/* Governance Structure */}
         <div>
           <motion.h3 
@@ -250,54 +403,104 @@ export default function CommunitySection() {
             Our Governance Structure
           </motion.h3>
           
-          <div ref={governanceRef} className="max-w-4xl mx-auto">
-            <div className="relative">
-              {/* Vertical connecting line */}
-              <div className="absolute left-8 top-10 bottom-10 w-0.5 bg-gradient-to-b from-forest-200 via-earth-200 to-gold-200 hidden md:block"></div>
-              
-              {governanceStructures.map((structure, index) => (
-                <div key={structure.title} className="governance-item mb-16 last:mb-0">
-                  <div className="flex flex-col md:flex-row md:items-start gap-6">
-                    {/* Circle connector */}
-                    <div className="hidden md:flex items-center justify-center w-16 h-16 rounded-full bg-white shadow-md border border-earth-100 flex-shrink-0 z-10 mx-auto">
-                      <span className="text-2xl text-earth-700 font-serif">{index + 1}</span>
-                    </div>
-                    
-                    {/* Content */}
-                    <div className={`rounded-xl p-8 border shadow-lg transition-all duration-500 transform hover:-translate-y-1 hover:shadow-xl flex-1 ${structure.color} ${structure.borderColor}`}>
-                      <h4 className={`text-xl font-serif mb-4 ${structure.textColor}`}>{structure.title}</h4>
-                      <p className="text-earth-700">{structure.description}</p>
-                    </div>
+          <div ref={governanceRef} className="grid md:grid-cols-3 gap-8 mb-24">
+            {governanceStructures.map((structure, index) => (
+              <div key={structure.title} className="governance-item">
+                <div className={`rounded-xl shadow-md overflow-hidden ${structure.color} border ${structure.borderColor}`}>
+                  <div className={`p-6 ${structure.textColor}`}>
+                    <h4 className="text-xl font-serif mb-3">{structure.title}</h4>
+                    <p className="text-earth-700 text-sm">{structure.description}</p>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-          
-          {/* Call to action */}
-          <motion.div 
-            className="mt-24 text-center"
+        </div>
+        
+        {/* DAO and Contribution Section */}
+        <div ref={daoRef} className="mb-16">
+          <motion.h3 
+            className="text-2xl font-serif text-earth-900 mb-6 text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <div className="inline-block relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-earth-200/30 via-gold-200/40 to-forest-200/30 blur-xl rounded-full transform -translate-y-1/4 scale-[1.2] opacity-70"></div>
-              <div className="relative">
-                <h3 className="text-2xl font-serif text-earth-900 mb-6">Want to learn more about our community?</h3>
-                <a 
-                  href="#join" 
-                  className="btn-primary-earth px-8 py-3 rounded-full inline-flex items-center shadow-xl transition-all duration-300 transform hover:scale-105"
-                >
-                  <span>Join Our Community</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </a>
+            Structure Rooted in Trust & Transparency
+          </motion.h3>
+          
+          <div className="max-w-4xl mx-auto mt-10">
+            <div className="dao-item sacred-callout text-center">
+              <p className="font-serif text-xl text-earth-800 italic">
+                "Using blockchain technology to provide full transparency around decision-making and resource flow — from investors to participants."
+              </p>
+            </div>
+            
+            <div className="mt-16 grid md:grid-cols-2 gap-8">
+              <div className="dao-item bg-white p-8 rounded-xl shadow-lg border border-earth-100">
+                <h4 className="text-xl font-serif text-earth-900 mb-4">Decentralized Governance</h4>
+                <p className="text-earth-700 mb-4">Our DAO (Decentralized Autonomous Organization) enables transparent voting, resource allocation, and decision-making for all community members.</p>
+                <ul className="space-y-2 text-earth-700">
+                  <li className="flex items-start">
+                    <span className="text-forest-500 mr-2">•</span>
+                    <span>Transparent voting mechanisms</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-forest-500 mr-2">•</span>
+                    <span>Resource allocation tracking</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-forest-500 mr-2">•</span>
+                    <span>Multi-signature treasury management</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="dao-item bg-white p-8 rounded-xl shadow-lg border border-earth-100">
+                <h4 className="text-xl font-serif text-earth-900 mb-4">Contribution Paths</h4>
+                <p className="text-earth-700 mb-4">Multiple ways to participate in and contribute to our community, with varying levels of commitment and involvement.</p>
+                <ul className="space-y-2 text-earth-700">
+                  <li className="flex items-start">
+                    <span className="text-forest-500 mr-2">•</span>
+                    <span>Core founding members</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-forest-500 mr-2">•</span>
+                    <span>Resident contributors</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-forest-500 mr-2">•</span>
+                    <span>Program participants and visitors</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-forest-500 mr-2">•</span>
+                    <span>Remote contributors and supporters</span>
+                  </li>
+                </ul>
               </div>
             </div>
-          </motion.div>
+            
+            <div className="dao-item mt-16 text-center">
+              <p className="text-earth-700 text-lg">
+                Together, they will form the Council of Founding Members.
+              </p>
+            </div>
+          </div>
         </div>
+        
+        {/* Community Call to Action */}
+        <motion.div 
+          className="text-center mt-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          <a 
+            href="#join" 
+            className="inline-block px-8 py-3 bg-earth-600 text-white rounded-full hover:bg-earth-700 transition-colors shadow-md hover:shadow-lg"
+          >
+            Join Our Community
+          </a>
+        </motion.div>
       </div>
     </section>
   );
