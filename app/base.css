@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-gray-800 font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-8 py-3 bg-amber-700 text-white rounded-full hover:bg-amber-800 transition duration-300 transform hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply px-8 py-3 border-2 border-amber-700 text-amber-700 rounded-full hover:bg-amber-50 transition duration-300;
+  }
+  
+  .section-heading {
+    @apply text-3xl md:text-4xl font-semibold text-amber-900 mb-8 text-center;
+  }
+  
+  .card {
+    @apply bg-white p-6 rounded-lg shadow-md;
+  }
+}
+
+.hero-gradient {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4));
+}
+
+.animate-fade-in {
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.test {
+  background-color: red;
+}
